@@ -53,7 +53,7 @@ module.exports = {
                     `<div id="collapse${counterId}" class="panel-collapse collapse">`+
                         '<div class="panel-body">'+
                             `<p>${result.status}</p>`+
-                            `<a href="./screenshot/${result.description}"`+
+                            `<a href="./screenshot/${result.description}">`+
                                 'screen'+
                             '</a>'+
                         '</div>'+
