@@ -25,17 +25,18 @@ module.exports = {
         this._body += '<div class="panel panel-default">'+
                             '<div class="panel-heading">' +
                                 '<h4 class="panel-title">'+
-                                    `<a data-toggle="collapse" data-parent="#accordion" href="#collapse${counter++}">`+
+                                    `<a data-toggle="collapse" data-parent="#accordion" href="#collapse${counter}">`+
                                         result.description+
                                     '</a>'+
                                 '</h4>'+
                             '</div>'+
-                            `<div id="#collapse${counter++}" class="panel-collapse collapse in">`+
+                            `<div id="#collapse${counter}" class="panel-collapse collapse in">`+
                                 '<div class="panel-body">'+
                                     'Lorem'+
                                 '</div>'+
                             '</div>'+
                         '</div>';
+        counter++;
         //console.log('Spec: ' + result.description + ' was ' + result.status);
         /*for(var i = 0; i < result.failedExpectations.length; i++) {
             console.log('Failure: ' + result.failedExpectations[i].message);
