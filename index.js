@@ -9,6 +9,7 @@ let counter = 1;
 module.exports = {
 
     _body: '<div class="container"><div class="panel-group" id="accordion">',
+
     jasmineStarted: function(suiteInfo) {
        // console.log('Running suite with ' + suiteInfo.totalSpecsDefined);
     },
@@ -22,20 +23,27 @@ module.exports = {
     },
 
     specDone: function(result) {
-        this._body += '<div class="panel panel-default">'+
-                            '<div class="panel-heading">' +
-                                '<h4 class="panel-title">'+
-                                    `<a data-toggle="collapse" data-parent="#accordion" href="#collapse${counter}">`+
-                                        result.description+
-                                    '</a>'+
-                                '</h4>'+
-                            '</div>'+
-                            `<div id="collapse${counter}" class="panel-collapse collapse">`+
-                                '<div class="panel-body">'+
-                                    'Lorem'+
-                                '</div>'+
-                            '</div>'+
-                        '</div>';
+        this._body += '<div class="panel panel-default">';
+
+        if(result.status == 'passed'){
+            this._body +=  '<div class="panel-heading bg-success">';
+        }else{
+            this._body +=  '<div class="panel-heading bg-danger">';
+        }
+
+        this._body +=   '<h4 class="panel-title">'+
+                            `<a data-toggle="collapse" data-parent="#accordion" href="#collapse${counter}">`+
+                                result.description+
+                            '</a>'+
+                        '</h4>'+
+                    '</div>'+
+                    `<div id="collapse${counter}" class="panel-collapse collapse">`+
+                        '<div class="panel-body">'+
+                            `${result.status}`+
+                        '</div>'+
+                    '</div>'+
+                '</div>';
+
         counter++;
         //console.log('Spec: ' + result.description + ' was ' + result.status);
         /*for(var i = 0; i < result.failedExpectations.length; i++) {
@@ -65,7 +73,6 @@ module.exports = {
             dir: './',
             head: '<meta name="viewport" content="width=device-width, initial-scale=1">',
             body: this._body,
-            favicon: 'favicon.png'
         });
 
 
