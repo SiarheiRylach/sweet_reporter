@@ -1,0 +1,25 @@
+{
+  "name": "sweet_reporter",
+  "version": "1.0.0",
+  "description": "reporter for jasmine",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SiarheiRylach/sweet_reporter.git"
+  },
+  "keywords": [
+    "reporter",
+    "jasmine",
+    "sweet",
+    "reporter"
+  ],
+  "author": "Siarhei Rylach",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SiarheiRylach/sweet_reporter/issues"
+  },
+  "homepage": "https://github.com/SiarheiRylach/sweet_reporter#readme"
+}
