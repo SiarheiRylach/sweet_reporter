@@ -5,7 +5,7 @@
 
 const fs = require('fs');
 const createHTML = require('create-html');
-
+let counter = 1;
 module.exports = {
 
     _body: '<div class="container"><div class="panel-group" id="accordion">',
@@ -30,7 +30,7 @@ module.exports = {
                                     '</a>'+
                                 '</h4>'+
                             '</div>'+
-                            '<div id="collapse1" class="panel-collapse collapse in">'+
+                            `<div id="collapse${counter++}" class="panel-collapse collapse in">`+
                                 '<div class="panel-body">'+
                                     'Lorem'+
                                 '</div>'+
