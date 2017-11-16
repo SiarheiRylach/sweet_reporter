@@ -75,7 +75,7 @@ module.exports = {
                                             `<a data-toggle="collapse" data-parent="stack-accordion${counterId}" href="#stack-collapse${counterId}">Stack</a>`+
                                         '</h4>'+
                                     '</div>'+
-                                    '<div id="stack-collapse${counterId}" class="panel-collapse collapse">'+
+                                    `<div id="stack-collapse${counterId}" class="panel-collapse collapse">`+
                                         `<div class="panel-body">${stack}</div>`+
                                     '</div>'+
                                 '</div>'+
