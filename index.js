@@ -4,11 +4,24 @@
 "use strict";
 
 const fs = require('fs');
-const createHTML = require('create-html');
 let counter = 1;
+
 module.exports = {
 
-    _body: '<div class="container"><div class="panel-group" id="accordion">',
+    _html:  '<!DOCTYPE html>'+
+            '<html lang="en">'+
+            '<head>'+
+                '<title>report</title>'+
+                '<meta charset="utf-8">'+
+                '<meta name="viewport" content="width=device-width, initial-scale=1">'+
+                '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">'+
+                '<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>'+
+                '<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>'+
+                '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>'+
+            '</head>'+
+            '<body>'+
+                '<div class="container">'+
+                    '<div class="panel-group" id="accordion">',
 
     jasmineStarted: function(suiteInfo) {
        // console.log('Running suite with ' + suiteInfo.totalSpecsDefined);
@@ -23,15 +36,15 @@ module.exports = {
     },
 
     specDone: function(result) {
-        this._body += '<div class="panel panel-default">';
+        this._html += '<div class="panel">';
 
         if(result.status == 'passed'){
-            this._body +=  '<div class="panel-heading bg-success">';
+            this._html += '<div class="panel-heading bg-success">';
         }else{
-            this._body +=  '<div class="panel-heading bg-danger">';
+            this._html += '<div class="panel-heading bg-danger">';
         }
 
-        this._body +=   '<h4 class="panel-title">'+
+        this._html +=   '<h4 class="panel-title">'+
                             `<a data-toggle="collapse" data-parent="#accordion" href="#collapse${counter}">`+
                                 result.description+
                             '</a>'+
@@ -62,20 +75,10 @@ module.exports = {
     },
 
     jasmineDone: function() {
-        this._body += '</div></div>';
-
-        const html = createHTML({
-            title: 'report',
-            script: ['https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js',
-                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'],
-            css: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
-            lang: 'en',
-            dir: './',
-            head: '<meta name="viewport" content="width=device-width, initial-scale=1">',
-            body: this._body,
-        });
+        this._html += '</div></div>';
 
 
-        fs.writeFileSync('report.html', html);
+
+        fs.writeFileSync('report.html', this._html);
     }
 };

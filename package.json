@@ -21,8 +21,5 @@
   "bugs": {
     "url": "https://github.com/SiarheiRylach/sweet_reporter/issues"
   },
-  "homepage": "https://github.com/SiarheiRylach/sweet_reporter#readme",
-  "dependencies": {
-    "create-html": "^4.1.0"
-  }
+  "homepage": "https://github.com/SiarheiRylach/sweet_reporter#readme"
 }
