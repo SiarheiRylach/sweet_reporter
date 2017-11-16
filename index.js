@@ -48,7 +48,7 @@ module.exports = {
             this._html += '<div class="panel-heading bg-danger">';
         }
         let stack = result.failedExpectations.reduce(function(res, current) {
-            return res + current;
+            return res + current.stack;
         }, "");
         this._html +=   '<h4 class="panel-title">'+
                             `<a data-toggle="collapse" data-parent="#accordion" href="#collapse${counterId}">`+
