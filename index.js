@@ -5,6 +5,7 @@
 
 const fs = require('fs');
 let counterId = 1;
+const dirScreenshots = './screenshot';
 
 module.exports = {
 
@@ -35,7 +36,7 @@ module.exports = {
     },
 
     specDone: function(result) {
-        let screenName = result.description.replace(/[/:\s,]/g, '_');
+        let screenName = result.description.replace(/[/:\s,]/g, '_') + '.png';
 
         Promise.resolve(this._createScreenshot(screenName));
 
@@ -90,11 +91,11 @@ module.exports = {
     },
 
     _createScreenshot: function (name) {
-        this._createDir('./screenshot');
+        this._createDir(dirScreenshots);
 
        return  browser.takeScreenshot().then((screen)=>{
             //let name = new Date().toLocaleString("en").replace(/[/:\s,]/g, '') + '.png';
-            let path = './screenshot/' + name + '.png';
+            let path =  dirScreenshots + '/' + name;
             return fs.writeFile(path, screen, 'base64', function(err) {
                 if(err) {
                     console.log(err);
