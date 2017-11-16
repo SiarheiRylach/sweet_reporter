@@ -8,10 +8,10 @@ const createHTML = require('create-html');
 
 module.exports = {
 
-
+    _html: '<div class="container"><div class="panel-group" id="accordion">',
     jasmineStarted: function(suiteInfo) {
        // console.log('Running suite with ' + suiteInfo.totalSpecsDefined);
-        const html = createHTML({
+        this._html = createHTML({
             title: 'report',
             script: ['https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js',
                      'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'],
@@ -19,11 +19,9 @@ module.exports = {
             lang: 'en',
             dir: './',
             head: '<meta name="viewport" content="width=device-width, initial-scale=1">',
-            body: '<div class="container"><div class="panel-group" id="accordion">',
             favicon: 'favicon.png'
         });
 
-        fs.writeFileSync('report.html', html);
     },
 
     suiteStarted: function(result) {
@@ -50,7 +48,7 @@ module.exports = {
                             '</div>'+
                         '</div>';
 
-        fs.appendFileSync('report.html', infoSpec);
+        this._html += infoSpec;
         //console.log('Spec: ' + result.description + ' was ' + result.status);
         /*for(var i = 0; i < result.failedExpectations.length; i++) {
             console.log('Failure: ' + result.failedExpectations[i].message);
@@ -69,7 +67,7 @@ module.exports = {
 
     jasmineDone: function() {
         let closeTags = '</div></div>';
-        fs.appendFileSync('report.html', closeTags);
-        console.log('Finished suite');
+        this._html += closeTags;
+        fs.writeFileSync('report.html', this._html);
     }
 };
