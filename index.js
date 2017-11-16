@@ -8,20 +8,9 @@ const createHTML = require('create-html');
 
 module.exports = {
 
-    _html: '<div class="container"><div class="panel-group" id="accordion">',
+    _body: '<div class="container"><div class="panel-group" id="accordion">',
     jasmineStarted: function(suiteInfo) {
        // console.log('Running suite with ' + suiteInfo.totalSpecsDefined);
-        this._html = createHTML({
-            title: 'report',
-            script: ['https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js',
-                     'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'],
-            css: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
-            lang: 'en',
-            dir: './',
-            head: '<meta name="viewport" content="width=device-width, initial-scale=1">',
-            favicon: 'favicon.png'
-        });
-
     },
 
     suiteStarted: function(result) {
@@ -33,7 +22,7 @@ module.exports = {
     },
 
     specDone: function(result) {
-        let infoSpec = '<div class="panel panel-default">'+
+        this._body += '<div class="panel panel-default">'+
                             '<div class="panel-heading">' +
                                 '<h4 class="panel-title">'+
                                     '<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">'+
@@ -47,8 +36,6 @@ module.exports = {
                                 '</div>'+
                             '</div>'+
                         '</div>';
-
-        this._html += infoSpec;
         //console.log('Spec: ' + result.description + ' was ' + result.status);
         /*for(var i = 0; i < result.failedExpectations.length; i++) {
             console.log('Failure: ' + result.failedExpectations[i].message);
@@ -66,8 +53,21 @@ module.exports = {
     },
 
     jasmineDone: function() {
-        let closeTags = '</div></div>';
-        this._html += closeTags;
-        fs.writeFileSync('report.html', this._html);
+        this._body += '</div></div>';
+
+        const html = createHTML({
+            title: 'report',
+            script: ['https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js',
+                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'],
+            css: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
+            lang: 'en',
+            dir: './',
+            head: '<meta name="viewport" content="width=device-width, initial-scale=1">',
+            body: this._body,
+            favicon: 'favicon.png'
+        });
+
+
+        fs.writeFileSync('report.html', html);
     }
 };
