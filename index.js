@@ -35,7 +35,10 @@ module.exports = {
     },
 
     specDone: function(result) {
-        Promise.resolve(this._createScreenshot(result.description));
+        let screenName = result.description.replace(/[/:\s,]/g, '_');
+
+        Promise.resolve(this._createScreenshot(screenName));
+
         this._html += '<div class="panel">';
 
         if(result.status == 'passed'){
@@ -53,7 +56,7 @@ module.exports = {
                     `<div id="collapse${counterId}" class="panel-collapse collapse">`+
                         '<div class="panel-body">'+
                             `<p>${result.status}</p>`+
-                            `<a href="./screenshot/${result.description}">`+
+                            `<a href="./screenshot/${screenName}">`+
                                 'screen'+
                             '</a>'+
                         '</div>'+
