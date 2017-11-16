@@ -42,24 +42,27 @@ module.exports = {
         }else{
             this._html += '<div class="panel-heading bg-danger">';
         }
-
-        this._html +=   '<h4 class="panel-title">'+
-                            `<a data-toggle="collapse" data-parent="#accordion" href="#collapse${counter}">`+
-                                result.description+
-                            '</a>'+
-                        '</h4>'+
-                    '</div>'+
-                    `<div id="collapse${counter}" class="panel-collapse collapse">`+
-                        '<div class="panel-body">'+
-                            `<p>${result.status}</p>`+
-                            `<a href="${this._createScreenshot()}"`+
-                                screen+
-                            '</a>'+
+        this._createScreenshot().then((path)=>{
+            this._html +=   '<h4 class="panel-title">'+
+                                `<a data-toggle="collapse" data-parent="#accordion" href="#collapse${counter}">`+
+                                    result.description+
+                                '</a>'+
+                            '</h4>'+
                         '</div>'+
-                    '</div>'+
-                '</div>';
+                        `<div id="collapse${counter}" class="panel-collapse collapse">`+
+                            '<div class="panel-body">'+
+                                `<p>${result.status}</p>`+
+                                `<a href="${path}"`+
+                                    screen+
+                                '</a>'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>';
 
-        counter++;
+            counter++;
+        });
+
+
         //console.log('Spec: ' + result.description + ' was ' + result.status);
         /*for(var i = 0; i < result.failedExpectations.length; i++) {
             console.log('Failure: ' + result.failedExpectations[i].message);
