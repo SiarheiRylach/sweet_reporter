@@ -5,7 +5,7 @@
 
 const fs = require('fs');
 let counterId = 1;
-const dirScreenshots = './screenshot';
+const dirScreenshots = './screenshot/';
 
 module.exports = {
 
@@ -57,7 +57,7 @@ module.exports = {
                     `<div id="collapse${counterId}" class="panel-collapse collapse">`+
                         '<div class="panel-body">'+
                             `<p>${result.status}</p>`+
-                            `<a href="./screenshot/${screenName}">`+
+                            `<a href="${dirScreenshots +screenName}" target="_blank">`+
                                 'screen'+
                             '</a>'+
                         '</div>'+
@@ -95,7 +95,7 @@ module.exports = {
 
        return  browser.takeScreenshot().then((screen)=>{
             //let name = new Date().toLocaleString("en").replace(/[/:\s,]/g, '') + '.png';
-            let path =  dirScreenshots + '/' + name;
+            let path =  dirScreenshots + name;
             return fs.writeFile(path, screen, 'base64', function(err) {
                 if(err) {
                     console.log(err);
