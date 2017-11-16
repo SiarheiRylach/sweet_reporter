@@ -25,7 +25,7 @@ module.exports = {
         this._body += '<div class="panel panel-default">'+
                             '<div class="panel-heading">' +
                                 '<h4 class="panel-title">'+
-                                    '<a data-toggle="collapse" data-parent="#accordion" href="#collapse${counter++}">'+
+                                    `<a data-toggle="collapse" data-parent="#accordion" href="#collapse${counter++}">`+
                                         result.description+
                                     '</a>'+
                                 '</h4>'+
