@@ -43,6 +43,7 @@ module.exports = {
             this._html += '<div class="panel-heading bg-danger">';
         }
 
+        let path = this._createScreenshot();
         this._html +=   '<h4 class="panel-title">'+
                             `<a data-toggle="collapse" data-parent="#accordion" href="#collapse${counter}">`+
                                 result.description+
@@ -51,7 +52,10 @@ module.exports = {
                     '</div>'+
                     `<div id="collapse${counter}" class="panel-collapse collapse">`+
                         '<div class="panel-body">'+
-                            `${result.status}`+
+                            `<p>${result.status}</p>`+
+                            `<a href="${path}"`+
+                                screen+
+                            '</a>'+
                         '</div>'+
                     '</div>'+
                 '</div>';
@@ -76,8 +80,24 @@ module.exports = {
     jasmineDone: function() {
         this._html += '</div></div>';
 
-
-
         fs.writeFileSync('report.html', this._html);
+    },
+
+    _createScreenshot: function () {
+            this._createDir('./screenshot');
+            browser.takeScreenshot().then((screen)=> {
+                let name = new Date().toLocaleString("en").replace(/[/:\s,]/g, '') + '.png';
+                let path = './screenshot/' + name;
+                fs.writeFile(path, screen, 'base64');
+                return path;
+            });
+    },
+
+    _createDir: function createDir(path) {
+        if (!fs.existsSync(path)){
+            fs.mkdirSync(path);
+        }
+
     }
+
 };
