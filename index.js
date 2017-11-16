@@ -47,7 +47,9 @@ module.exports = {
         }else{
             this._html += '<div class="panel-heading bg-danger">';
         }
-
+        let stack = result.failedExpectations.reduce(function(res, current) {
+            return res + current;
+        }, "");
         this._html +=   '<h4 class="panel-title">'+
                             `<a data-toggle="collapse" data-parent="#accordion" href="#collapse${counterId}">`+
                                 result.description+
@@ -55,14 +57,21 @@ module.exports = {
                         '</h4>'+
                     '</div>'+
                     `<div id="collapse${counterId}" class="panel-collapse collapse">`+
-                        '<div class="panel-body">'+
-                            `<p>${result.stack}</p>`+
-                            `<a href="${dirScreenshots +screenName}" target="_blank">`+
-                                'Screen'+
-                            '</a>'+
-                        '</div>'+
-                    '</div>'+
+                        '<div class="panel-body">';
+        if(stack) {
+            this._html += `<p>${stack}</p>`;
+        }else{
+            this._html += `<p>${result.status}</p>`;
+        }
+
+        this._html +=     `<a href="${dirScreenshots + screenName}" target="_blank">` +
+                             'Screen' +
+                          '</a>' +
+                        '</div>' +
+                    '</div>' +
                 '</div>';
+
+
 
         counterId++;
 
