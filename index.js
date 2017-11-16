@@ -36,20 +36,19 @@ module.exports = {
     },
 
     specDone: function(result) {
+        let isPassed  = result.status === 'passed';
         let screenName = result.description.replace(/[/:\s,]/g, '_') + '.png';
 
         Promise.resolve(this._createScreenshot(screenName));
 
         this._html += '<div class="panel">';
 
-        if(result.status == 'passed'){
+        if(isPassed){
             this._html += '<div class="panel-heading bg-success">';
         }else{
             this._html += '<div class="panel-heading bg-danger">';
         }
-        let stack = result.failedExpectations.reduce(function(res, current) {
-            return res + current.stack;
-        }, "");
+
         this._html +=   '<h4 class="panel-title">'+
                             `<a data-toggle="collapse" data-parent="#accordion" href="#collapse${counterId}">`+
                                 result.description+
@@ -58,10 +57,43 @@ module.exports = {
                     '</div>'+
                     `<div id="collapse${counterId}" class="panel-collapse collapse">`+
                         '<div class="panel-body">';
-        if(stack) {
-            this._html += `<p>${stack}</p>`;
-        }else{
+        if(isPassed) {
             this._html += `<p>${result.status}</p>`;
+        }else{
+            let stack = result.failedExpectations.reduce(function(res, current) {
+                return res + current.stack;
+            }, "");
+
+            let messages = result.failedExpectations.reduce(function(res, current) {
+                return res + current.message;
+            }, "");
+
+            this._html +=  `<div class="panel-group" id="stack-accordion${counterId}">`+
+                                '<div class="panel">'+
+                                    '<div class="panel-heading bg-danger">'+
+                                        '<h4 class="panel-title">'+
+                                            `<a data-toggle="collapse" data-parent="stack-accordion${counterId}" href="#stack-collapse${counterId}">Stack</a>`+
+                                        '</h4>'+
+                                    '</div>'+
+                                    '<div id="stack-collapse${counterId}" class="panel-collapse collapse">'+
+                                        `<div class="panel-body">${stack}</div>`+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>';
+
+            this._html +=  `<div class="panel-group" id="messages-accordion${counterId}">`+
+                                '<div class="panel">'+
+                                    '<div class="panel-heading bg-danger">'+
+                                        '<h4 class="panel-title">'+
+                                            `<a data-toggle="collapse" data-parent="messages-accordion${counterId}" href="#messages-collapse${counterId}">Stack</a>`+
+                                        '</h4>'+
+                                    '</div>'+
+                                    `<div id="messages-collapse${counterId}" class="panel-collapse collapse">`+
+                                        `<div class="panel-body">${messages}</div>`+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>';
+
         }
 
         this._html +=     `<a href="${dirScreenshots + screenName}" target="_blank">` +
@@ -94,7 +126,7 @@ module.exports = {
     },
 
     jasmineDone: function() {
-        this._html += '</div></div>';
+        this._html += '</div></div></body>';
 
         fs.writeFileSync('report.html', this._html);
     },
