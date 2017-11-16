@@ -88,7 +88,7 @@ module.exports = {
         return new Promise((resolve, reject)=>{
             browser.takeScreenshot().then((screen)=>{
                 let name = new Date().toLocaleString("en").replace(/[/:\s,]/g, '') + '.png';
-                let path = './screenshot/' + date + '.png';
+                let path = './screenshot/' + name;
                 fs.writeFile(path, screen, 'base64', function(err) {
                     if(err) {
                         reject(err);
