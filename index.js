@@ -50,7 +50,7 @@ module.exports = {
                             '</div>'+
                         '</div>';
 
-
+        fs.appendFileSync('report.html', infoSpec);
         //console.log('Spec: ' + result.description + ' was ' + result.status);
         /*for(var i = 0; i < result.failedExpectations.length; i++) {
             console.log('Failure: ' + result.failedExpectations[i].message);
@@ -69,6 +69,7 @@ module.exports = {
 
     jasmineDone: function() {
         let closeTags = '</div></div>';
+        fs.appendFileSync('report.html', closeTags);
         console.log('Finished suite');
     }
 };
