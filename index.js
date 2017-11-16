@@ -53,7 +53,7 @@ module.exports = {
                             '<div class="panel-body">'+
                                 `<p>${result.status}</p>`+
                                 `<a href="${path}"`+
-                                    screen+
+                                    'screen'+
                                 '</a>'+
                             '</div>'+
                         '</div>'+
