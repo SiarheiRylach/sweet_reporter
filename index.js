@@ -68,24 +68,11 @@ module.exports = {
                 return res + current.message;
             }, "");
 
-            this._html +=  `<div class="panel-group" id="stack-accordion${counterId}">`+
-                                '<div class="panel">'+
-                                    '<div class="panel-heading bg-danger">'+
-                                        '<h4 class="panel-title">'+
-                                            `<a data-toggle="collapse" data-parent="stack-accordion${counterId}" href="#stack-collapse${counterId}">Stack</a>`+
-                                        '</h4>'+
-                                    '</div>'+
-                                    `<div id="stack-collapse${counterId}" class="panel-collapse collapse">`+
-                                        `<div class="panel-body">${stack}</div>`+
-                                    '</div>'+
-                                '</div>'+
-                            '</div>';
-
             this._html +=  `<div class="panel-group" id="messages-accordion${counterId}">`+
                                 '<div class="panel">'+
                                     '<div class="panel-heading bg-danger">'+
                                         '<h4 class="panel-title">'+
-                                            `<a data-toggle="collapse" data-parent="messages-accordion${counterId}" href="#messages-collapse${counterId}">Stack</a>`+
+                                            `<a data-toggle="collapse" data-parent="messages-accordion${counterId}" href="#messages-collapse${counterId}">Messages</a>`+
                                         '</h4>'+
                                     '</div>'+
                                     `<div id="messages-collapse${counterId}" class="panel-collapse collapse">`+
@@ -94,6 +81,18 @@ module.exports = {
                                 '</div>'+
                             '</div>';
 
+            this._html +=  `<div class="panel-group" id="stack-accordion${counterId}">`+
+                '<div class="panel">'+
+                '<div class="panel-heading bg-danger">'+
+                '<h4 class="panel-title">'+
+                `<a data-toggle="collapse" data-parent="stack-accordion${counterId}" href="#stack-collapse${counterId}">Stack</a>`+
+                '</h4>'+
+                '</div>'+
+                `<div id="stack-collapse${counterId}" class="panel-collapse collapse">`+
+                `<div class="panel-body">${stack}</div>`+
+                '</div>'+
+                '</div>'+
+                '</div>';
         }
 
         this._html +=     `<a href="${dirScreenshots + screenName}" target="_blank">` +
