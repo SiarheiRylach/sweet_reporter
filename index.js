@@ -56,9 +56,9 @@ module.exports = {
                     '</div>'+
                     `<div id="collapse${counterId}" class="panel-collapse collapse">`+
                         '<div class="panel-body">'+
-                            `<p>${result.status}</p>`+
+                            `<p>${result.failedExpectations[i].stack}</p>`+
                             `<a href="${dirScreenshots +screenName}" target="_blank">`+
-                                'screen'+
+                                'Screen'+
                             '</a>'+
                         '</div>'+
                     '</div>'+
