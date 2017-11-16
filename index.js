@@ -30,7 +30,7 @@ module.exports = {
                                     '</a>'+
                                 '</h4>'+
                             '</div>'+
-                            `<div id="collapse${counter}" class="panel-collapse collapse in">`+
+                            `<div id="collapse${counter}" class="panel-collapse collapse">`+
                                 '<div class="panel-body">'+
                                     'Lorem'+
                                 '</div>'+
