@@ -148,7 +148,7 @@ module.exports = {
     },
 
     jasmineDone: function() {
-       this._buffer = '</div></body>';
+       this._buffer += '</div></body>';
 
         fs.appendFileSync('report.html', this._buffer);
     },
