@@ -34,6 +34,7 @@ module.exports = {
 
     suiteStarted: function(result) {
        // console.log('Suite started: ' + result.description + ' whose full description is: ' + result.fullName);
+        counterId++;
     },
 
     specStarted: function(result) {
@@ -140,7 +141,6 @@ module.exports = {
                         '</div>';
 
         this._appendFile(tempSuite);
-        counterId++;
        /* console.log('Suite: ' + result.description + ' was ' + result.status);
         for(var i = 0; i < result.failedExpectations.length; i++) {
             console.log('AfterAll ' + result.failedExpectations[i].message);
