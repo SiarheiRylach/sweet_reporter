@@ -139,9 +139,7 @@ module.exports = {
                                 '</div>'+
                             '</div>'+
                         '</div>';
-
-        this._appendFile(tempSuite);
-        this._buffer = '';
+        this._buffer = tempSuite;
        /* console.log('Suite: ' + result.description + ' was ' + result.status);
         for(var i = 0; i < result.failedExpectations.length; i++) {
             console.log('AfterAll ' + result.failedExpectations[i].message);
@@ -150,9 +148,9 @@ module.exports = {
     },
 
     jasmineDone: function() {
-       let end = '</div></body>';
+       this._buffer = '</div></body>';
 
-        fs.appendFileSync('report.html', end);
+        fs.appendFileSync('report.html', this._buffer);
     },
 
     _createScreenshot: function (name) {
