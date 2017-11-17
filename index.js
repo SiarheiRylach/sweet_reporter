@@ -114,7 +114,7 @@ module.exports = {
     },
 
     suiteDone: function(result) {
-        let tempSuite = `<div class="panel-group" id="suite-accordion${counterId}">`+
+        let tempSuite = `<div class="panel-group" id="suite-accordion${counterSuiteId}">`+
                             '<div class="panel">';
 
         let isPassed  = result.status === 'passed';
@@ -136,6 +136,7 @@ module.exports = {
                         '</div>';
 
         this._appendFile(tempSuite);
+        counterId++;
        /* console.log('Suite: ' + result.description + ' was ' + result.status);
         for(var i = 0; i < result.failedExpectations.length; i++) {
             console.log('AfterAll ' + result.failedExpectations[i].message);
