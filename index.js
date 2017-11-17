@@ -145,6 +145,7 @@ module.exports = {
             console.log('AfterAll ' + result.failedExpectations[i].message);
             console.log(result.failedExpectations[i].stack);
         }*/
+        counterId++;
     },
 
     jasmineDone: function() {
