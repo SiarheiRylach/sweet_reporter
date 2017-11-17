@@ -32,6 +32,7 @@ module.exports = {
     },
 
     specStarted: function(result) {
+        console.log(result.status);
       //  console.log('Spec started: ' + result.description + ' whose full description is: ' + result.fullName);
     },
 
