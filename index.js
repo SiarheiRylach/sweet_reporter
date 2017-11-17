@@ -5,6 +5,7 @@
 
 const fs = require('fs');
 let counterId = 1;
+let counterSuiteId = 1;
 const dirScreenshots = './screenshot/';
 
 module.exports = {
@@ -20,10 +21,10 @@ module.exports = {
                 '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>'+
             '</head>'+
             '<body>'+
-                '<div class="container">'+
-                    '<div class="panel-group" id="accordion">',
+                '<div class="container">',
 
     jasmineStarted: function(suiteInfo) {
+        this._writeFile(this._html);
        // console.log('Running suite with ' + suiteInfo.totalSpecsDefined);
     },
 
@@ -32,8 +33,8 @@ module.exports = {
     },
 
     specStarted: function(result) {
-        console.log(result.status);
-      //  console.log('Spec started: ' + result.description + ' whose full description is: ' + result.fullName);
+        this._html += `<div class="panel-group" id="spec-accordion${counterId}">`+
+                        '<div class="panel">';
     },
 
     specDone: function(result) {
@@ -42,8 +43,6 @@ module.exports = {
 
         Promise.resolve(this._createScreenshot(screenName));
 
-        this._html += '<div class="panel">';
-
         if(isPassed){
             this._html += '<div class="panel-heading bg-success">';
         }else{
@@ -51,7 +50,7 @@ module.exports = {
         }
 
         this._html +=   '<h4 class="panel-title">'+
-                            `<a data-toggle="collapse" data-parent="#accordion" href="#collapse${counterId}">`+
+                            `<a data-toggle="collapse" data-parent="#spec-accordion${counterId}" href="#collapse${counterId}">`+
                                 result.description+
                             '</a>'+
                         '</h4>'+
@@ -83,17 +82,17 @@ module.exports = {
                             '</div>';
 
             this._html +=  `<div class="panel-group" id="stack-accordion${counterId}">`+
-                '<div class="panel">'+
-                '<div class="panel-heading bg-danger">'+
-                '<h4 class="panel-title">'+
-                `<a data-toggle="collapse" data-parent="stack-accordion${counterId}" href="#stack-collapse${counterId}">Stack</a>`+
-                '</h4>'+
-                '</div>'+
-                `<div id="stack-collapse${counterId}" class="panel-collapse collapse">`+
-                `<div class="panel-body">${stack}</div>`+
-                '</div>'+
-                '</div>'+
-                '</div>';
+                                '<div class="panel">'+
+                                    '<div class="panel-heading bg-danger">'+
+                                        '<h4 class="panel-title">'+
+                                            `<a data-toggle="collapse" data-parent="stack-accordion${counterId}" href="#stack-collapse${counterId}">Stack</a>`+
+                                        '</h4>'+
+                                    '</div>'+
+                                    `<div id="stack-collapse${counterId}" class="panel-collapse collapse">`+
+                                        `<div class="panel-body">${stack}</div>`+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>';
         }
 
         this._html +=     `<a href="${dirScreenshots + screenName}" target="_blank">` +
@@ -106,9 +105,6 @@ module.exports = {
 
 
         counterId++;
-
-
-
         //console.log('Spec: ' + result.description + ' was ' + result.status);
         /*for(var i = 0; i < result.failedExpectations.length; i++) {
             console.log('Failure: ' + result.failedExpectations[i].message);
@@ -118,6 +114,28 @@ module.exports = {
     },
 
     suiteDone: function(result) {
+        let tempSuite = `<div class="panel-group" id="suite-accordion${counterId}">`+
+                            '<div class="panel">';
+
+        let isPassed  = result.status === 'passed';
+
+        if(isPassed){
+            this._html += '<div class="panel-heading bg-success">';
+        }else{
+            this._html += '<div class="panel-heading bg-danger">';
+        }
+
+        tempSuite +=                '<h4 class="panel-title">'+
+                                        `<a data-toggle="collapse" data-parent="suite-accordion${counterId}" href="#suite-collapse${counterId}">${result.description}</a>`+
+                                    '</h4>'+
+                                '</div>'+
+                                `<div id="suite-collapse${counterId}" class="panel-collapse collapse">`+
+                                    `<div class="panel-body">${this._html}</div>`+
+                                '</div>'+
+                            '</div>'+
+                        '</div>';
+
+        this._appendFile(tempSuite);
        /* console.log('Suite: ' + result.description + ' was ' + result.status);
         for(var i = 0; i < result.failedExpectations.length; i++) {
             console.log('AfterAll ' + result.failedExpectations[i].message);
@@ -126,9 +144,9 @@ module.exports = {
     },
 
     jasmineDone: function() {
-        this._html += '</div></div></body>';
+       let end = '</div></body>';
 
-        fs.writeFileSync('report.html', this._html);
+        fs.appendFileSync('report.html', end);
     },
 
     _createScreenshot: function (name) {
@@ -153,6 +171,14 @@ module.exports = {
             fs.mkdirSync(path);
         }
 
+    },
+
+    _writeFile: function(data){
+        fs.writeFileSync('report.html', data);
+    },
+
+    _appendFile: function (data) {
+        fs.appendFileSync('report.html', data);
     }
 
 };
