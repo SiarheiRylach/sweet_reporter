@@ -10,7 +10,7 @@ const dirScreenshots = './screenshot/';
 
 module.exports = {
 
-    _html:  '<!DOCTYPE html>'+
+    _header:  '<!DOCTYPE html>'+
             '<html lang="en">'+
             '<head>'+
                 '<title>report</title>'+
@@ -23,8 +23,12 @@ module.exports = {
             '<body>'+
                 '<div class="container">',
 
+    _buffer: '',
+
+
     jasmineStarted: function(suiteInfo) {
-        this._writeFile(this._html);
+        this._writeFile(this._header);
+
        // console.log('Running suite with ' + suiteInfo.totalSpecsDefined);
     },
 
