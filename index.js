@@ -38,7 +38,7 @@ module.exports = {
     },
 
     specStarted: function(result) {
-        this._html += `<div class="panel-group" id="spec-accordion${counterId}">`+
+        this._buffer += `<div class="panel-group" id="spec-accordion${counterId}">`+
                         '<div class="panel">';
     },
 
@@ -49,12 +49,12 @@ module.exports = {
         Promise.resolve(this._createScreenshot(screenName));
 
         if(isPassed){
-            this._html += '<div class="panel-heading bg-success">';
+            this._buffer += '<div class="panel-heading bg-success">';
         }else{
-            this._html += '<div class="panel-heading bg-danger">';
+            this._buffer += '<div class="panel-heading bg-danger">';
         }
 
-        this._html +=   '<h4 class="panel-title">'+
+        this._buffer +=   '<h4 class="panel-title">'+
                             `<a data-toggle="collapse" data-parent="#spec-accordion${counterId}" href="#collapse${counterId}">`+
                                 result.description+
                             '</a>'+
@@ -63,7 +63,7 @@ module.exports = {
                     `<div id="collapse${counterId}" class="panel-collapse collapse">`+
                         '<div class="panel-body">';
         if(isPassed) {
-            this._html += `<p>${result.status}</p>`;
+            this._buffer += `<p>${result.status}</p>`;
         }else{
             let stack = result.failedExpectations.reduce(function(res, current) {
                 return res + current.stack;
@@ -73,7 +73,7 @@ module.exports = {
                 return res + current.message;
             }, "");
 
-            this._html +=  `<div class="panel-group" id="messages-accordion${counterId}">`+
+            this._buffer +=  `<div class="panel-group" id="messages-accordion${counterId}">`+
                                 '<div class="panel">'+
                                     '<div class="panel-heading bg-danger">'+
                                         '<h4 class="panel-title">'+
@@ -86,7 +86,7 @@ module.exports = {
                                 '</div>'+
                             '</div>';
 
-            this._html +=  `<div class="panel-group" id="stack-accordion${counterId}">`+
+            this._buffer +=  `<div class="panel-group" id="stack-accordion${counterId}">`+
                                 '<div class="panel">'+
                                     '<div class="panel-heading bg-danger">'+
                                         '<h4 class="panel-title">'+
@@ -100,7 +100,7 @@ module.exports = {
                             '</div>';
         }
 
-        this._html +=     `<a href="${dirScreenshots + screenName}" target="_blank">` +
+        this._buffer +=     `<a href="${dirScreenshots + screenName}" target="_blank">` +
                              'Screen' +
                           '</a>' +
                         '</div>' +
@@ -125,9 +125,9 @@ module.exports = {
         let isPassed  = result.status === 'passed';
 
         if(isPassed){
-            this._html += '<div class="panel-heading bg-success">';
+            tempSuite += '<div class="panel-heading bg-success">';
         }else{
-            this._html += '<div class="panel-heading bg-danger">';
+            tempSuite += '<div class="panel-heading bg-danger">';
         }
 
         tempSuite +=                '<h4 class="panel-title">'+
@@ -135,7 +135,7 @@ module.exports = {
                                     '</h4>'+
                                 '</div>'+
                                 `<div id="suite-collapse${counterId}" class="panel-collapse collapse">`+
-                                    `<div class="panel-body">${this._html}</div>`+
+                                    `<div class="panel-body">${this._buffer}</div>`+
                                 '</div>'+
                             '</div>'+
                         '</div>';
