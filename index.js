@@ -141,6 +141,7 @@ module.exports = {
                         '</div>';
 
         this._appendFile(tempSuite);
+        this._buffer = '';
        /* console.log('Suite: ' + result.description + ' was ' + result.status);
         for(var i = 0; i < result.failedExpectations.length; i++) {
             console.log('AfterAll ' + result.failedExpectations[i].message);
