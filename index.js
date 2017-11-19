@@ -10,6 +10,10 @@ const dirScreenshots = './screenshot/';
 
 module.exports = {
 
+    suits: [],
+
+    _temp: {},
+
     _header:  '<!DOCTYPE html>'+
             '<html lang="en">'+
             '<head>'+
@@ -36,6 +40,10 @@ module.exports = {
 
     suiteStarted: function(result) {
        // console.log('Suite started: ' + result.description + ' whose full description is: ' + result.fullName);
+        this._temp = {
+            name:result.description,
+            specs:[]
+        }
     },
 
     specStarted: function(result) {
@@ -44,6 +52,10 @@ module.exports = {
     },
 
     specDone: function(result) {
+        this._temp.specs.push({
+            name: result.description,
+            result: result.status
+        });
         let isPassed  = result.status === 'passed';
         let screenName = result.description.replace(/[/:\s,]/g, '_') + '.png';
 
@@ -120,6 +132,11 @@ module.exports = {
     },
 
     suiteDone: function(result) {
+        this._temp.result({
+            name: result.description,
+            result: result.status,
+
+        });
         this._html += `<div class="panel-group" id="suite-accordion${counterSuiteId}">`+
                             '<div class="panel">';
 
