@@ -121,7 +121,7 @@ module.exports = {
         let tempSuite = `<div class="panel-group" id="suite-accordion${counterSuiteId}">`+
                             '<div class="panel">';
 
-        console.log(result.status);
+        console.log('result' + result.status);
 
         let isPassed  = result.status === 'passed';
 
