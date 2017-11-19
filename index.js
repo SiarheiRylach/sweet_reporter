@@ -123,7 +123,7 @@ module.exports = {
 
         console.log(result.failedExpectations.length);
 
-        let isPassed  = result.failedExpectations.length > 0;
+        let isPassed  = result.failedExpectations.length < 1;
 
         if(isPassed){
             tempSuite += '<div class="panel-heading bg-success">';
