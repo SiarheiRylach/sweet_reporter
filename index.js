@@ -120,7 +120,7 @@ module.exports = {
     },
 
     suiteDone: function(result) {
-        this._html = `<div class="panel-group" id="suite-accordion${counterSuiteId}">`+
+        this._html += `<div class="panel-group" id="suite-accordion${counterSuiteId}">`+
                             '<div class="panel">';
 
         let isPassed  = result.failedExpectations.length < 1;
@@ -152,7 +152,7 @@ module.exports = {
     },
 
     jasmineDone: function() {
-       this._html += '</div></div></div></body>';
+       this._html += '</div></div></body>';
 
         fs.appendFileSync('report.html', this._html);
     },
