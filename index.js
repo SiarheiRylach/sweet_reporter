@@ -109,7 +109,7 @@ module.exports = {
 
 
 
-        counterId++;
+        ++counterId;
         //console.log('Spec: ' + result.description + ' was ' + result.status);
         /*for(var i = 0; i < result.failedExpectations.length; i++) {
             console.log('Failure: ' + result.failedExpectations[i].message);
