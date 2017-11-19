@@ -23,6 +23,8 @@ module.exports = {
             '<body>'+
                 '<div class="container">',
 
+    _html: '',
+
     _buffer: '',
 
 
@@ -118,20 +120,18 @@ module.exports = {
     },
 
     suiteDone: function(result) {
-        let tempSuite = `<div class="panel-group" id="suite-accordion${counterSuiteId}">`+
+        this._html = `<div class="panel-group" id="suite-accordion${counterSuiteId}">`+
                             '<div class="panel">';
-
-        console.log(result.failedExpectations.length);
 
         let isPassed  = result.failedExpectations.length < 1;
 
         if(isPassed){
-            tempSuite += '<div class="panel-heading bg-success">';
+            this._html += '<div class="panel-heading bg-success">';
         }else{
-            tempSuite += '<div class="panel-heading bg-danger">';
+            this._html += '<div class="panel-heading bg-danger">';
         }
 
-        tempSuite +=                '<h4 class="panel-title">'+
+        this._html +=                '<h4 class="panel-title">'+
                                         `<a data-toggle="collapse" data-parent="suite-accordion${counterSuiteId}" href="#suite-collapse${counterSuiteId}">${result.description}</a>`+
                                     '</h4>'+
                                 '</div>'+
@@ -140,7 +140,7 @@ module.exports = {
                                 '</div>'+
                             '</div>'+
                         '</div>';
-        this._buffer = tempSuite;
+        this._buffer = '';
         counterSuiteId++;
        /* console.log('Suite: ' + result.description + ' was ' + result.status);
         for(var i = 0; i < result.failedExpectations.length; i++) {
