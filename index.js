@@ -34,7 +34,7 @@ module.exports = {
 
     suiteStarted: function(result) {
        // console.log('Suite started: ' + result.description + ' whose full description is: ' + result.fullName);
-        ++counterId;
+        counterSuiteId++;
     },
 
     specStarted: function(result) {
