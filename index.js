@@ -131,7 +131,7 @@ module.exports = {
         }
 
         tempSuite +=                '<h4 class="panel-title">'+
-                                        `<a data-toggle="collapse" data-parent="suite-accordion${counterId}" href="#suite-collapse${counterId}">${result.description}</a>`+
+                                        `<a data-toggle="collapse" data-parent="suite-accordion${counterSuiteId}" href="#suite-collapse${counterId}">${result.description}</a>`+
                                     '</h4>'+
                                 '</div>'+
                                 `<div id="suite-collapse${counterId}" class="panel-collapse collapse">`+
@@ -145,7 +145,6 @@ module.exports = {
             console.log('AfterAll ' + result.failedExpectations[i].message);
             console.log(result.failedExpectations[i].stack);
         }*/
-        counterSuiteId++;
     },
 
     jasmineDone: function() {
