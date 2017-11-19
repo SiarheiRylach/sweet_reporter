@@ -139,7 +139,9 @@ module.exports = {
                                     `<div class="panel-body">${this._buffer}</div>`+
                                 '</div>'+
                             '</div>'+
-                        '</div>';
+                        '</div>'+
+                    '</div>';
+
         this._buffer = '';
         counterSuiteId++;
        /* console.log('Suite: ' + result.description + ' was ' + result.status);
