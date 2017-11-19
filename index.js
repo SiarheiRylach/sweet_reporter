@@ -109,7 +109,7 @@ module.exports = {
 
 
 
-        ++counterId;
+        counterId++;
         //console.log('Spec: ' + result.description + ' was ' + result.status);
         /*for(var i = 0; i < result.failedExpectations.length; i++) {
             console.log('Failure: ' + result.failedExpectations[i].message);
@@ -131,10 +131,10 @@ module.exports = {
         }
 
         tempSuite +=                '<h4 class="panel-title">'+
-                                        `<a data-toggle="collapse" data-parent="suite-accordion${counterSuiteId}" href="#suite-collapse${counterId}">${result.description}</a>`+
+                                        `<a data-toggle="collapse" data-parent="suite-accordion${counterSuiteId}" href="#suite-collapse${counterSuiteId}">${result.description}</a>`+
                                     '</h4>'+
                                 '</div>'+
-                                `<div id="suite-collapse${counterId}" class="panel-collapse collapse">`+
+                                `<div id="suite-collapse${counterSuiteId}" class="panel-collapse collapse">`+
                                     `<div class="panel-body">${this._buffer}</div>`+
                                 '</div>'+
                             '</div>'+
