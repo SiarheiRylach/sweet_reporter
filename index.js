@@ -150,9 +150,9 @@ module.exports = {
     },
 
     jasmineDone: function() {
-       this._buffer += '</div></div></div></body>';
+       this._html += '</div></div></div></body>';
 
-        fs.appendFileSync('report.html', this._buffer);
+        fs.appendFileSync('report.html', this._html);
     },
 
     _createScreenshot: function (name) {
