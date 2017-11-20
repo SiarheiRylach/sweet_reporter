@@ -7,7 +7,7 @@ const fs = require('fs');
 let counterId = 1;
 let counterSuiteId = 1;
 
-const myReporter = {
+module.exports = {
 
     _suits: [],
 
