@@ -17,7 +17,12 @@ const logger = log4js.getLogger('sweet');
 let counterId = 1;
 let counterSuiteId = 1;
 
+
 module.exports = {
+
+    _numberFailedSpec: 0,
+
+    _numberPassedSpec: 0,
 
     _suits: [],
 
@@ -65,6 +70,14 @@ module.exports = {
         logger.debug('Spec: ' + result.description + ' was ' + result.status);
 
         let isPassed = result.status === 'passed';
+
+        //statistics
+        if(isPassed){
+            this._numberPassedSpec++;
+        }else{
+            this._numberFailedSpec++;
+        }
+
         let screenName = result.description.replace(/[/:\s,]/g, '_');
         let dateScreen = new Date().toLocaleString("en").replace(/[/:\s,]/g, '_');
         screenName = screenName + "_" + dateScreen + '.png';
@@ -118,7 +131,9 @@ module.exports = {
             '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>'+
             '</head>'+
             '<body>'+
-            '<div class="container">';
+            '<div class="container">'+
+                `<span class="label label-success">Passed: ${this._numberPassedSpec}</span>`+
+                `<span class="label label-danger">Failed:  ${this._numberFailedSpec}</span>`;
 
         this._writeFile(header);
 
