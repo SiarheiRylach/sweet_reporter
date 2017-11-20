@@ -4,6 +4,16 @@
 "use strict";
 
 const fs = require('fs');
+const log4js = require('log4js');
+
+log4js.configure({
+    appenders: { sweet: { type: 'file', filename: 'sweet.log' } },
+    categories: { default: { appenders: ['sweet'], level: 'debug' } }
+});
+
+const logger = log4js.getLogger('sweet');
+
+
 let counterId = 1;
 let counterSuiteId = 1;
 
@@ -18,12 +28,12 @@ module.exports = {
     _current: null,
 
     jasmineStarted: function (suiteInfo) {
-
-        // console.log('Running suite with ' + suiteInfo.totalSpecsDefined);
+        logger.debug('Running suite with ' + suiteInfo.totalSpecsDefined);
     },
 
     suiteStarted: function (result) {
-        // console.log('Suite started: ' + result.description + ' whose full description is: ' + result.fullName);
+        logger.debug('Suite started: ' + result.description + ' whose full description is: ' + result.fullName);
+
         if (this._current) {
             let parent = this._current;
             this._current = {
