@@ -58,10 +58,12 @@ module.exports = {
     },
 
     specStarted: function (result) {
-
+        logger.debug('Spec started: ' + result.description + ' whose full description is: ' + result.fullName);
     },
 
     specDone: function (result) {
+        logger.debug('Spec: ' + result.description + ' was ' + result.status);
+
         let isPassed = result.status === 'passed';
         let screenName = result.description.replace(/[/:\s,]/g, '_');
         let dateScreen = new Date().toLocaleString("en").replace(/[/:\s,]/g, '_');
@@ -85,30 +87,21 @@ module.exports = {
             messages: messages,
             screen: pathScreen
         });
-
-        //console.log('Spec: ' + result.description + ' was ' + result.status);
-        /*for(var i = 0; i < result.failedExpectations.length; i++) {
-         console.log('Failure: ' + result.f+
-         ailedExpectations[i].message);
-         console.log(result.failedExpectations[i].stack);
-         }
-         console.log(result.passedExpectations.length);*/
     },
 
     suiteDone: function (result) {
+        logger.debug('Suite: ' + result.description + ' was ' + result.status);
+
         this._current.result = !this._current.specs.some((spec)=> spec.result === false);
         if(this._current.result){
             this._current.result = !this._current.childs.some((suite)=> suite.result === false)
         }
         this._current = this._current.parent;
-        /* console.log('Suite: ' + result.description + ' was ' + result.status);
-         for(var i = 0; i < result.failedExpectations.length; i++) {
-         console.log('AfterAll ' + result.failedExpectations[i].message);
-         console.log(result.failedExpectations[i].stack);
-         }*/
     },
 
     jasmineDone: function () {
+        logger.debug('Jasmine done');
+
         this._toHtml();
     },
 
